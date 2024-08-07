@@ -150,12 +150,13 @@ func TestGetByClient(t *testing.T) {
 	storedParcels, err := store.GetByClient(client)    // получите список посылок по идентификатору клиента, сохранённого в переменной client
 	require.NoError(t, err)                            // убедитесь в отсутствии ошибки
 	require.Equal(t, len(parcels), len(storedParcels)) // убедитесь, что количество полученных посылок совпадает с количеством добавленных
-	require.NotEmpty(t, storedParcels)
+
 	// check
 	for _, parcel := range storedParcels {
 		// в parcelMap лежат добавленные посылки, ключ - идентификатор посылки, значение - сама посылка
 		// убедитесь, что все посылки из storedParcels есть в parcelMap
 		// убедитесь, что значения полей полученных посылок заполнены верно
+		require.NotEmpty(t, storedParcels)
 		mapParcel := parcelMap[parcel.Number]
 		require.Equal(t, parcel, mapParcel)
 	}
