@@ -49,14 +49,11 @@ func (s ParcelStore) GetByClient(client int) ([]Parcel, error) {
 	// здесь из таблицы может вернуться несколько строк
 	row, err := s.db.Query("SELECT number, client, status, address, created_at FROM Parcel WHERE client = :client", sql.Named("client", client))
 	if err != nil {
-		return []Parcel{}, err
+		return nil, err
 	}
 	defer row.Close()
 	var res []Parcel
 	for row.Next() {
-		if err = row.Err(); err != nil {
-			return nil, err
-		}
 		p := Parcel{}
 		err := row.Scan(&p.Number, &p.Client, &p.Status, &p.Address, &p.CreatedAt)
 		if err != nil {

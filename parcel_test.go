@@ -152,12 +152,11 @@ func TestGetByClient(t *testing.T) {
 	require.Equal(t, len(parcels), len(storedParcels)) // убедитесь, что количество полученных посылок совпадает с количеством добавленных
 
 	// check
+	require.NotEmpty(t, storedParcels)
 	for _, parcel := range storedParcels {
 		// в parcelMap лежат добавленные посылки, ключ - идентификатор посылки, значение - сама посылка
 		// убедитесь, что все посылки из storedParcels есть в parcelMap
 		// убедитесь, что значения полей полученных посылок заполнены верно
-		require.NotEmpty(t, storedParcels)
-		mapParcel := parcelMap[parcel.Number]
-		require.Equal(t, parcel, mapParcel)
+		assert.Equal(t, parcel, parcelMap[parcel.Number])
 	}
 }
